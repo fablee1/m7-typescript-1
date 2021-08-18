@@ -1,12 +1,11 @@
 import { InputGroup, FormControl, Button } from "react-bootstrap"
 import { useState } from "react"
+import { useHistory } from "react-router-dom"
 
-interface Props {
-  search: (query: string) => void
-}
-
-const Search = ({ search }: Props) => {
+const Search = () => {
   const [name, setName] = useState<string>("")
+
+  const history = useHistory()
 
   return (
     <div className="d-flex justify-content-center align-items-center h-100">
@@ -18,7 +17,9 @@ const Search = ({ search }: Props) => {
             value={name}
             onInput={(e) => setName((e.target as HTMLInputElement).value)}
           />
-          <Button variant="outline-secondary" onClick={() => search(name)}>
+          <Button
+            variant="outline-secondary"
+            onClick={() => history.push("/search?q=" + name)}>
             Search
           </Button>
         </InputGroup>

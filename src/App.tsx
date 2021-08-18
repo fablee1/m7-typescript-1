@@ -1,32 +1,20 @@
 import "./App.css"
 import Search from "./components/Search"
-import { useState, useEffect } from "react"
-import Track from "./types/Track"
 import Results from "./components/Results"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
 function App() {
-  const [tracks, setTracks] = useState<Track[]>([])
-
-  const searchTracks = async (query: string) => {
-    try {
-      const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + query
-      )
-      const data = (await response.json())?.data as Track[]
-      setTracks(data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   return (
-    <>
-      {tracks.length === 0 ? (
-        <Search search={searchTracks} />
-      ) : (
-        <Results tracks={tracks} />
-      )}
-    </>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Search />
+        </Route>
+        <Route exact path="/search">
+          <Results />
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 

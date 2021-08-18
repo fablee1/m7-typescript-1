@@ -2,6 +2,7 @@ import "./App.css"
 import Search from "./components/Search"
 import { useState, useEffect } from "react"
 import Track from "./types/Track"
+import Results from "./components/Results"
 
 function App() {
   const [tracks, setTracks] = useState<Track[]>([])
@@ -18,7 +19,15 @@ function App() {
     }
   }
 
-  return <>{tracks.length === 0 ? <Search search={searchTracks} /> : false}</>
+  return (
+    <>
+      {tracks.length === 0 ? (
+        <Search search={searchTracks} />
+      ) : (
+        <Results tracks={tracks} />
+      )}
+    </>
+  )
 }
 
 export default App
